@@ -37,7 +37,6 @@ public class TcpPacketCodec extends ByteToMessageCodec<Packet> {
         if (packetID != -1) {
             Packet packet = packetRegistry.createPacket(packetID);
             packet.read(input);
-
             out.add(packet);
         }
 

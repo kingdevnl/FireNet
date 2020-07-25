@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 public class Packet {
 
 
+
     public void read(NetInput buff) {
     }
     public void write(NetOutput buff) {}

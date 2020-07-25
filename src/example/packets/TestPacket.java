@@ -1,21 +1,22 @@
 package packets;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import nl.kingdev.firenet.server.io.NetInput;
 import nl.kingdev.firenet.server.io.NetOutput;
 import nl.kingdev.firenet.server.packet.Packet;
 
 import java.io.IOException;
 
+
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class TestPacket extends Packet  {
 
     private String msg;
 
-    public TestPacket() {
-    }
 
-    public TestPacket(String msg) {
-        this.msg = msg;
-    }
 
     @Override
     public void read(NetInput buff) {

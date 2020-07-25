@@ -1,5 +1,7 @@
 package packets;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import nl.kingdev.firenet.server.io.NetInput;
 import nl.kingdev.firenet.server.io.NetOutput;
 import nl.kingdev.firenet.server.packet.Packet;
@@ -7,15 +9,11 @@ import nl.kingdev.firenet.server.packet.Packet;
 import java.io.IOException;
 import java.util.Arrays;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class Test2Packet extends Packet {
     private String[] messages;
 
-    public Test2Packet() {
-    }
-
-    public Test2Packet(String[] messages) {
-        this.messages = messages;
-    }
 
     @Override
     public void read(NetInput buff) {
@@ -36,7 +34,7 @@ public class Test2Packet extends Packet {
     public void write(NetOutput buff) {
         try {
             buff.writeVarInt(messages.length);
-            for (String  s : messages) {
+            for (String s : messages) {
                 buff.writeString(s);
             }
         } catch (IOException e) {

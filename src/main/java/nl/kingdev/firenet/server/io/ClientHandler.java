@@ -29,6 +29,8 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
         System.out.println("ctx = " + ctx + ", msg = " + msg);
     }
 
+
+
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         super.exceptionCaught(ctx, cause);

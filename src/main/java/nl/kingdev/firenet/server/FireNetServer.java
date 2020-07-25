@@ -10,6 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import lombok.Getter;
+import nl.kingdev.firenet.server.interfaces.ICallback;
 import nl.kingdev.firenet.server.io.ClientHandler;
 import nl.kingdev.firenet.server.io.TcpPacketCodec;
 import nl.kingdev.firenet.server.packet.PacketRegistry;
@@ -35,35 +36,30 @@ public class FireNetServer implements IServer {
                 .childHandler(new ChannelInitializer<Channel>() {
                     @Override
                     protected void initChannel(Channel ch) {
-                        channel = ch;
-                        FireNetServer.this.initChannel(channel);
+                        FireNetServer.this.initChannel(ch);
                     }
                 });
-
     }
 
-    private static final StringEncoder encoder = new StringEncoder();
-    private static final StringDecoder decoder = new StringDecoder();
-
+    //Initialize a channel with the client
     @Override
     public void initChannel(Channel channel) {
         ChannelPipeline pipeline = channel.pipeline();
-
         pipeline.addLast("codec", new TcpPacketCodec(getPacketRegistry()));
         pipeline.addLast("handler", new ClientHandler(this));
-
     }
 
 
     @Override
-    public void bind(String host, int port, Runnable callback) throws InterruptedException {
+    public void bind(String host, int port, ICallback<Channel> callback) throws InterruptedException {
 
         new Thread(() -> {
 
             ChannelFuture channelFuture = serverBootstrap.localAddress(host, port).bind();
             channel = channelFuture.channel();
+
             if (callback != null) {
-                callback.run();
+                callback.run(channel);
             }
         }).start();
 
