@@ -1,6 +1,7 @@
 package server;
 
 import nl.kingdev.firenet.server.FireNetServer;
+import packets.Test2Packet;
 import packets.TestPacket;
 
 public class ServerTest {
@@ -17,6 +18,7 @@ public class ServerTest {
 
                 //Register a packet with the id 0x08, with the type TestPacket
                 server.getPacketRegistry().register(0x08, TestPacket.class);
+                server.getPacketRegistry().register(0x09, Test2Packet.class);
 
                 System.out.println("Ready! "+server.getChannel());
 
