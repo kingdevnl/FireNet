@@ -7,13 +7,15 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
 import lombok.Getter;
-import nl.kingdev.firenet.server.interfaces.ICallback;
+import nl.kingdev.firenet.common.interfaces.ICallback;
+import nl.kingdev.firenet.server.client.ClientContext;
 import nl.kingdev.firenet.server.io.ClientHandler;
-import nl.kingdev.firenet.server.io.TcpPacketCodec;
-import nl.kingdev.firenet.server.packet.PacketRegistry;
+import nl.kingdev.firenet.common.io.TcpPacketCodec;
+import nl.kingdev.firenet.common.packet.PacketRegistry;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FireNetServer implements IServer {
 
@@ -28,6 +30,10 @@ public class FireNetServer implements IServer {
     @Getter
     private PacketRegistry packetRegistry = new PacketRegistry();
 
+
+
+    @Getter
+    private Map<String, ClientContext> clients = new HashMap<>();
 
     @Override
     public void setup() {

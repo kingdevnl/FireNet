@@ -1,9 +1,7 @@
 package nl.kingdev.firenet.server;
 
 import io.netty.channel.Channel;
-import io.netty.channel.nio.NioEventLoopGroup;
-import nl.kingdev.firenet.server.interfaces.ICallback;
-import nl.kingdev.firenet.server.packet.PacketRegistry;
+import nl.kingdev.firenet.common.interfaces.ICallback;
 
 public interface IServer {
 

@@ -7,8 +7,8 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import nl.kingdev.firenet.server.io.TcpPacketCodec;
-import nl.kingdev.firenet.server.packet.PacketRegistry;
+import nl.kingdev.firenet.common.io.TcpPacketCodec;
+import nl.kingdev.firenet.common.packet.PacketRegistry;
 import packets.Test2Packet;
 import packets.TestPacket;
 

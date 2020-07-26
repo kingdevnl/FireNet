@@ -1,6 +1,7 @@
-package nl.kingdev.firenet.server.packet;
+package nl.kingdev.firenet.common.packet;
 
-import nl.kingdev.firenet.server.interfaces.IRegistry;
+
+import nl.kingdev.firenet.common.interfaces.IRegistry;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

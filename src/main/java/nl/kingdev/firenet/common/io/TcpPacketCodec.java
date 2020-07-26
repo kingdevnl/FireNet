@@ -1,10 +1,12 @@
-package nl.kingdev.firenet.server.io;
+package nl.kingdev.firenet.common.io;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
-import nl.kingdev.firenet.server.packet.Packet;
-import nl.kingdev.firenet.server.packet.PacketRegistry;
+import nl.kingdev.firenet.common.interfaces.NetInput;
+import nl.kingdev.firenet.common.interfaces.NetOutput;
+import nl.kingdev.firenet.common.packet.Packet;
+import nl.kingdev.firenet.common.packet.PacketRegistry;
 
 import java.util.List;
 
@@ -18,13 +20,8 @@ public class TcpPacketCodec extends ByteToMessageCodec<Packet> {
 
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Packet packet, ByteBuf byteBuf) throws Exception {
-
         NetOutput output = new NetOutput(byteBuf);
-
         output.writeVarInt(packetRegistry.getPacketID(packet.getClass()));
-
-        System.out.println("channelHandlerContext = " + channelHandlerContext + ", packet = " + packet + ", byteBuf = " + byteBuf + " > " + packetRegistry.getPacketID(packet.getClass()));
-
         packet.write(output);
     }
 
