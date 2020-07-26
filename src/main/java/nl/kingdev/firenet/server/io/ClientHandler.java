@@ -2,6 +2,7 @@ package nl.kingdev.firenet.server.io;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import nl.kingdev.firenet.common.packets.HelloPacket;
 import nl.kingdev.firenet.server.FireNetServer;
 import nl.kingdev.firenet.common.packet.Packet;
 import nl.kingdev.firenet.server.client.ClientContext;
@@ -23,14 +24,17 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
+
         ClientContext clientContext = new ClientContext(ctx);
-        server.getClients().put(ctx.name(), clientContext);
+        server.getClients().put(ctx.channel().id().asShortText(), clientContext);
+
+        clientContext.sendPacket(new HelloPacket("Hello client "+ctx.channel().id().asShortText()));
     }
 
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        server.getClients().remove(ctx.name());
+        server.getClients().remove(ctx.channel().id().asShortText());
     }
 
     @Override

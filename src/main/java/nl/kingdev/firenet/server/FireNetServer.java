@@ -9,6 +9,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.Getter;
 import nl.kingdev.firenet.common.interfaces.ICallback;
+import nl.kingdev.firenet.common.packets.HelloPacket;
 import nl.kingdev.firenet.server.client.ClientContext;
 import nl.kingdev.firenet.server.io.ClientHandler;
 import nl.kingdev.firenet.common.io.TcpPacketCodec;
@@ -65,6 +66,7 @@ public class FireNetServer implements IServer {
             channel = channelFuture.channel();
 
             if (callback != null) {
+                packetRegistry.register(0x1337, HelloPacket.class);
                 callback.run(channel);
             }
         }).start();

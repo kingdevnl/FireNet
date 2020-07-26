@@ -47,6 +47,9 @@ public class PacketRegistry implements IRegistry<Integer, Class<? extends Packet
     }
 
     public int getPacketID(Class<? extends Packet> aClass) {
+        if(!OUTGOING.containsKey(aClass)) {
+            System.err.println("Failed to find packet id for: "+aClass.getName());
+        }
         return OUTGOING.get(aClass);
     }
 }
