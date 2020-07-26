@@ -1,4 +1,4 @@
-package nl.kingdev.firenet.common.interfaces;
+package nl.kingdev.firenet.common.io;
 
 import io.netty.buffer.ByteBuf;
 

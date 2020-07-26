@@ -1,7 +1,7 @@
 package nl.kingdev.firenet.common.packet;
 
-import nl.kingdev.firenet.common.interfaces.NetInput;
-import nl.kingdev.firenet.common.interfaces.NetOutput;
+import nl.kingdev.firenet.common.io.NetInput;
+import nl.kingdev.firenet.common.io.NetOutput;
 
 public class Packet {
 

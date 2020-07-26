@@ -3,8 +3,6 @@ package nl.kingdev.firenet.common.io;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
-import nl.kingdev.firenet.common.interfaces.NetInput;
-import nl.kingdev.firenet.common.interfaces.NetOutput;
 import nl.kingdev.firenet.common.packet.Packet;
 import nl.kingdev.firenet.common.packet.PacketRegistry;
 
