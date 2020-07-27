@@ -1,8 +1,7 @@
 package server;
 
-import nl.kingdev.firenet.common.events.Event;
 import nl.kingdev.firenet.common.events.EventHandler;
-import nl.kingdev.firenet.common.events.impl.client.ClientConnectEvent;
+import nl.kingdev.firenet.server.events.client.ClientConnectEvent;
 import nl.kingdev.firenet.common.events.impl.packet.PacketReceivedEvent;
 import nl.kingdev.firenet.common.events.impl.packet.PacketSendEvent;
 import nl.kingdev.firenet.server.FireNetServer;

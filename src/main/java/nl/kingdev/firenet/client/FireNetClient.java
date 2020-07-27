@@ -9,12 +9,20 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.Getter;
 import nl.kingdev.firenet.client.interfaces.IClient;
 import nl.kingdev.firenet.client.io.ClientHandler;
+import nl.kingdev.firenet.common.events.EventManager;
+import nl.kingdev.firenet.common.events.impl.packet.PacketSendEvent;
 import nl.kingdev.firenet.common.interfaces.ICallback;
 import nl.kingdev.firenet.common.io.TcpPacketCodec;
+import nl.kingdev.firenet.common.packet.Packet;
 import nl.kingdev.firenet.common.packet.PacketRegistry;
 import nl.kingdev.firenet.common.packets.HelloPacket;
+import nl.kingdev.firenet.server.FireNetServer;
+import packets.TestPacket;
 
 public class FireNetClient implements IClient {
+
+
+
 
     @Getter
     private Channel channel;
@@ -25,6 +33,8 @@ public class FireNetClient implements IClient {
 
     @Getter
     private PacketRegistry packetRegistry = new PacketRegistry();
+    @Getter
+    private EventManager eventManager = new EventManager();
 
     @Override
     public void setup() {
@@ -71,4 +81,9 @@ public class FireNetClient implements IClient {
     }
 
 
+    public void sendPacket(Packet packet) throws InterruptedException {
+        if(!eventManager.call(new PacketSendEvent(packet))) {
+            channel.writeAndFlush(packet).sync();
+        }
+    }
 }

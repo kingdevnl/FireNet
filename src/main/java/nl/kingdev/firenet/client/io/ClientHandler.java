@@ -3,8 +3,9 @@ package nl.kingdev.firenet.client.io;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import nl.kingdev.firenet.client.FireNetClient;
+import nl.kingdev.firenet.common.events.impl.packet.PacketReceivedEvent;
 import nl.kingdev.firenet.common.packet.Packet;
-import nl.kingdev.firenet.common.packets.HelloPacket;
+
 
 public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
 
@@ -22,10 +23,8 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Packet packet) throws Exception {
+        client.getEventManager().call(new PacketReceivedEvent(packet));
 
-        if(packet instanceof HelloPacket) {
-            System.out.println("server -> client "+packet);
-        }
     }
 
 }

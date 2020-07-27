@@ -1,4 +1,4 @@
-package nl.kingdev.firenet.common.events.impl.client;
+package nl.kingdev.firenet.server.events.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

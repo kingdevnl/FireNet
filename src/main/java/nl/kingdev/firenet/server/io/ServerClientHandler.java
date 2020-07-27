@@ -2,8 +2,8 @@ package nl.kingdev.firenet.server.io;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import nl.kingdev.firenet.common.events.impl.client.ClientConnectEvent;
-import nl.kingdev.firenet.common.events.impl.client.ClientDisconnectedEvent;
+import nl.kingdev.firenet.server.events.client.ClientConnectEvent;
+import nl.kingdev.firenet.server.events.client.ClientDisconnectedEvent;
 import nl.kingdev.firenet.common.events.impl.packet.PacketReceivedEvent;
 import nl.kingdev.firenet.common.packets.HelloPacket;
 import nl.kingdev.firenet.server.FireNetServer;
