@@ -6,11 +6,11 @@ import nl.kingdev.firenet.client.FireNetClient;
 import nl.kingdev.firenet.common.packet.Packet;
 import nl.kingdev.firenet.common.packets.HelloPacket;
 
-public class ClientClientHandler extends SimpleChannelInboundHandler<Packet> {
+public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
 
     private final FireNetClient client;
 
-    public ClientClientHandler(FireNetClient fireNetClient) {
+    public ClientHandler(FireNetClient fireNetClient) {
         this.client = fireNetClient;
     }
 

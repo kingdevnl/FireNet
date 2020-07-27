@@ -8,10 +8,11 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.Getter;
+import nl.kingdev.firenet.common.events.EventManager;
 import nl.kingdev.firenet.common.interfaces.ICallback;
 import nl.kingdev.firenet.common.packets.HelloPacket;
 import nl.kingdev.firenet.server.client.ClientContext;
-import nl.kingdev.firenet.server.io.ClientHandler;
+import nl.kingdev.firenet.server.io.ServerClientHandler;
 import nl.kingdev.firenet.common.io.TcpPacketCodec;
 import nl.kingdev.firenet.common.packet.PacketRegistry;
 
@@ -31,6 +32,8 @@ public class FireNetServer implements IServer {
     @Getter
     private PacketRegistry packetRegistry = new PacketRegistry();
 
+    @Getter
+    private EventManager eventManager = new EventManager();
 
 
     @Getter
@@ -53,7 +56,7 @@ public class FireNetServer implements IServer {
     public void initChannel(Channel channel) {
         ChannelPipeline pipeline = channel.pipeline();
         pipeline.addLast("codec", new TcpPacketCodec(getPacketRegistry()));
-        pipeline.addLast("handler", new ClientHandler(this));
+        pipeline.addLast("handler", new ServerClientHandler(this));
     }
 
 

@@ -1,5 +1,10 @@
 package server;
 
+import nl.kingdev.firenet.common.events.Event;
+import nl.kingdev.firenet.common.events.EventHandler;
+import nl.kingdev.firenet.common.events.impl.client.ClientConnectEvent;
+import nl.kingdev.firenet.common.events.impl.packet.PacketReceivedEvent;
+import nl.kingdev.firenet.common.events.impl.packet.PacketSendEvent;
 import nl.kingdev.firenet.server.FireNetServer;
 import packets.Test2Packet;
 import packets.TestPacket;
@@ -11,6 +16,18 @@ public class ServerTest {
         //Setup netty
 
         server.setup();
+
+        server.getEventManager().on(PacketReceivedEvent.class, (EventHandler<PacketReceivedEvent>) event -> {
+            System.out.println("onPacketReceived: "+event.getPacket());
+
+        });
+        server.getEventManager().on(PacketSendEvent.class, (EventHandler<PacketSendEvent>) event -> {
+            System.out.println("OnPacketSend: "+event.getPacket());
+        });
+
+        server.getEventManager().on(ClientConnectEvent.class, (EventHandler<ClientConnectEvent>) e -> {
+            System.out.println("A new client connected: "+e.toString());
+        });
 
         try {
             //Bind the server to the port

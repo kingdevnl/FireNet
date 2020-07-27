@@ -2,21 +2,22 @@ package nl.kingdev.firenet.server.io;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import nl.kingdev.firenet.common.events.impl.client.ClientConnectEvent;
+import nl.kingdev.firenet.common.events.impl.client.ClientDisconnectedEvent;
+import nl.kingdev.firenet.common.events.impl.packet.PacketReceivedEvent;
 import nl.kingdev.firenet.common.packets.HelloPacket;
 import nl.kingdev.firenet.server.FireNetServer;
 import nl.kingdev.firenet.common.packet.Packet;
 import nl.kingdev.firenet.server.client.ClientContext;
 
 
-public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
+public class ServerClientHandler extends SimpleChannelInboundHandler<Packet> {
 
 
     private final FireNetServer server;
 
 
-
-
-    public ClientHandler(FireNetServer server) {
+    public ServerClientHandler(FireNetServer server) {
         this.server = server;
     }
 
@@ -25,21 +26,27 @@ public class ClientHandler extends SimpleChannelInboundHandler<Packet> {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         super.channelActive(ctx);
 
-        ClientContext clientContext = new ClientContext(ctx);
+        ClientContext clientContext = new ClientContext(ctx, server);
         server.getClients().put(ctx.channel().id().asShortText(), clientContext);
 
-        clientContext.sendPacket(new HelloPacket("Hello client "+ctx.channel().id().asShortText()));
+        server.getEventManager().call(new ClientConnectEvent(clientContext));
+
+        clientContext.sendPacket(new HelloPacket("Hello client " + ctx.channel().id().asShortText()));
     }
 
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        ClientContext clientContext = server.getClients().get(ctx.channel().id().asShortText());
+        server.getEventManager().call(new ClientDisconnectedEvent(clientContext));
         server.getClients().remove(ctx.channel().id().asShortText());
+
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Packet msg) throws Exception {
-        System.out.println("channelRead0 ctx = " + ctx + ", msg = " + msg);
+    protected void channelRead0(ChannelHandlerContext ctx, Packet packet) throws Exception {
+        server.getEventManager().call(new PacketReceivedEvent(packet));
+
     }
 
     @Override

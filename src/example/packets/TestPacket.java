@@ -16,8 +16,6 @@ public class TestPacket extends Packet  {
 
     private String msg;
 
-
-
     @Override
     public void read(NetInput buff) {
 
